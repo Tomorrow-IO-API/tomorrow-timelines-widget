@@ -6,12 +6,12 @@ import { WeatherIcon } from "./weather-icon.component";
 
 function Hourly({ hourly }) {
     return (
-        <div className="hourly">
-            {hourly.map(hour => (
-                <div className="hour">
-                    <div className="hour-time">{formatTime(hour.observation_time.value)}</div>
-                    <div className="hour-icon"><WeatherIcon value={hour.weather_code.value} /></div>
-                    <div className="hour-temp"><Temp value={hour.temp.value} />°</div>
+        <div key="hourly" className="hourly">
+            {hourly.intervals.map((hour, index) => (
+                <div key={index} className="hour">
+                    <div key="hour-time" className="hour-time">{formatTime(hour.startTime)}</div>
+                    <div key="hour-icon" className="hour-icon"><WeatherIcon value={hour.values.weatherCode} /></div>
+                    <div key="hour-temp" className="hour-temp"><Temp value={hour.values.temperature} />°</div>
                 </div>
             ))}
         </div>

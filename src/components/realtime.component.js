@@ -7,14 +7,14 @@ import { prettyPrintWeatherCode } from "../utilities";
 function Realtime({ realtime }) {
     return (
         <div className="realtime">
-            <div className="realtime-temp"><Temp value={realtime.temp.value} /></div>
+            <div className="realtime-temp"><Temp value={realtime.intervals[0].values.temperature} /></div>
             <div className="realtime-temp-degrees">°C</div>
             <div>
-                <div className="realtime-weather-code">{prettyPrintWeatherCode(realtime.weather_code.value)}</div>
-                <div className="realtime-feels-like">Feels Like <Temp value={realtime.feels_like.value} />°</div>
+                <div className="realtime-weather-code">{prettyPrintWeatherCode(realtime.intervals[0].values.weatherCode)}</div>
+                <div className="realtime-feels-like">Feels Like <Temp value={realtime.intervals[0].values.temperatureApparent} />°</div>
             </div>
             <div className="realtime-icon">
-                <WeatherIcon value={realtime.weather_code.value} />
+                <WeatherIcon value={realtime.intervals[0].values.weatherCode} />
             </div>
         </div>
     );

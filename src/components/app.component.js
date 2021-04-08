@@ -2,13 +2,14 @@ import React from 'react';
 import './app.component.css';
 import { Realtime } from "./realtime.component";
 import { Hourly } from "./hourly.component";
-import { useHourly, useRealtime } from "../hooks/use-weather.hook";
-import ClimacellIcon from '../icons/climacell-icon-colored.svg';
+import { useTimeline } from "../hooks/use-weather.hook";
+import TomorrowIcon from '../icons/tomorrow-icon.svg';
 import PinIcon from '../icons/pin.svg';
 import { addHours } from "../utilities";
 
 const now = new Date();
-const sixHoursFromNow = addHours({ date: now, hours: 6 });
+const startTime = now.toISOString();
+const endTime = addHours({ date: now, hours: 6 }).toISOString();
 
 function Loading() {
     return <div>Loading...</div>;
@@ -18,39 +19,40 @@ function Error() {
     return <div>Oops! Something went wrong :(</div>;
 }
 
-function PoweredByClimacell() {
+function PoweredByTomorrow() {
     return (
         <div className="powered">
-            <a className="powered-link" target="_blank" href="https://www.climacell.co">
+            <a className="powered-link" target="_blank" href="https://www.tomorrow.io">
                 <img className="icon powered-icon"
-                     src={ClimacellIcon}
-                     alt="Powered by ClimaCell"
-                     title="Powered by ClimaCell" />
-                Powered by ClimaCell
+                     src={TomorrowIcon}
+                     alt="Powered by Tomorrow.io"
+                     title="Powered by Tomorrow.io" />
+                Powered by Tomorrow.io
             </a>
         </div>
     );
 }
 
 function App({ apikey, lat, lon, location }) {
-    const [realtimeResponse, loadingRealtime, realtimeHasError] = useRealtime({
-        apikey, lat, lon
-    });
-    const [hourlyResponse, loadingHourly, hourlyHasError] = useHourly({
-        apikey, lat, lon, start: now, end: sixHoursFromNow
+    const [timelineResponse, timelineLoading, timelineHasError] = useTimeline({
+        apikey, lat, lon, startTime, endTime
     });
 
-    if (loadingRealtime || loadingHourly) {
+    if (timelineLoading) {
         return <Loading />;
     }
 
-    if (realtimeHasError || hourlyHasError) {
+    if (timelineHasError) {
         return <Error />;
     }
 
+    const realtimeResponse = timelineResponse.data.timelines[0];
+
+    const hourlyResponse = timelineResponse.data.timelines[1];
+
     return (
         <div className="app-root">
-            <PoweredByClimacell />
+            <PoweredByTomorrow />
             <div className="time">{now.toDateString()}</div>
             <div className="location">
                 <img className="icon location-icon"
