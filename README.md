@@ -4,7 +4,7 @@ Weather Widget
 #### Weather Widget using Tomorrow.io API ####
 Use our [/timelines endpoint](https://docs.tomorrow.io/reference/timelines-overview) with our [collection of weather icons](https://github.com/Tomorrow-IO-API/tomorrow-weather-codes) to create your very own weather widget.
 
-This project is an updated version of the previous v3-based widget, highlighted in [our blog](https://developer.tomorrow.io/blog/how-to-create-a-weather-widget-with-a-weather-api) including a step-by-step explanations on how it's built.
+This project is an updated version of the [previous v3-based widget](https://github.com/nati-levi/climacell-weather-widget), highlighted in [our blog](https://developer.tomorrow.io/blog/how-to-create-a-weather-widget-with-a-weather-api) including a step-by-step explanations on how it's built.
 
 ### What's Included ###
 Single page React-based weather widget, showing snapshot of today's weather (temperature and weather icon) - including realtime and upcoming 6 hours (in UTC).
